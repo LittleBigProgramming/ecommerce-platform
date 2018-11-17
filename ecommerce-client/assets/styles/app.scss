@@ -1,0 +1,11 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+//override default bulma variables
+$table-cell-padding: 2rem 2rem;
+$table-cell-border-width: 0;
+$table-background-color: transparent;
+
+@import "components/navigation";
+
+@import "~bulma/bulma";
