@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 /*
@@ -15,5 +16,7 @@ use Illuminate\Http\Request;
 
 
 Route::get('/', function () {
-   return 'hello';
+    $categories = Category::parents()->ordered()->get();
+
+    dd($categories);
 });
