@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::resource('categories', 'Categories\CategoryController');
 
 Route::get('/', function () {
     $categories = Category::parents()->ordered()->get();
