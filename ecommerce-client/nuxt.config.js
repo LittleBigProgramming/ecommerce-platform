@@ -40,7 +40,12 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
   ],
+
+  axios: {
+    baseURL: 'http://ecommerce.test:80/api'
+  },
 
   /*
   ** Build configuration
