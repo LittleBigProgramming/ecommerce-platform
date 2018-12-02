@@ -33,4 +33,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class)->orderBy('order', 'asc');
+    }
 }
