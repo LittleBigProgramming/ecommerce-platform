@@ -2,10 +2,31 @@
 
 namespace App\Models;
 
+use App\Cart\Money;
+use App\Models\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductVariation extends Model
 {
+    use HasPrice;
+
+    /**
+     * @param $value
+     * @return Money
+     */
+    public function getPriceAttribute($value)
+    {
+        return $value ? new Money($value) : $this->product->price;
+    }
+
+    /**
+     * @return bool
+     */
+    public function priceVaries()
+    {
+        return $this->price->amount() !== $this->product->price->amount();
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

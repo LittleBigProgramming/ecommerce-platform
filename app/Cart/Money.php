@@ -24,6 +24,14 @@ class Money
     /**
      * @return string
      */
+    public function amount()
+    {
+        return $this->money->getAmount();
+    }
+
+    /**
+     * @return string
+     */
     public function formatted()
     {
         $formatter = new IntlMoneyFormatter(
