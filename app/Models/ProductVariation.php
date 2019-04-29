@@ -75,7 +75,8 @@ class ProductVariation extends Model
     public function stock()
     {
         return $this->belongsToMany(
-            ProductVariation::class, 'product_variation_stock_view'
+            ProductVariation::class,
+            'product_variation_stock_view'
         )->withPivot([
             'stock',
             'in_stock'

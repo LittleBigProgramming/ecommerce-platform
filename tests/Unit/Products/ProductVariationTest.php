@@ -82,4 +82,71 @@ class ProductVariationTest extends TestCase
 
         $this->assertInstanceOf(Stock::class, $product->stocks->first());
     }
+
+    public function testHasStockInformation()
+    {
+        $product = factory(ProductVariation::class)->create();
+
+        $product->stocks()->save(
+            factory(Stock::class)->make()
+        );
+
+        $this->assertInstanceOf(ProductVariation::class, $product->stock->first());
+    }
+
+    public function testHasStockCountPivotWithinStockInformation()
+    {
+        $variation = factory(ProductVariation::class)->create();
+
+        $variation->stocks()->save(
+            factory(Stock::class)->make([
+                'quantity' => $quantity = 5
+            ])
+        );
+
+        $this->assertEquals($variation->stock->first()->pivot->stock, $quantity);
+    }
+
+    public function testHasStockInStockWithinStockInformation()
+    {
+        $variation = factory(ProductVariation::class)->create();
+
+        $variation->stocks()->save(
+            factory(Stock::class)->make()
+        );
+
+        $this->assertTrue((bool) $variation->stock->first()->pivot->in_stock);
+    }
+
+    public function testCanCheckIfInStock()
+    {
+        $variation = factory(ProductVariation::class)->create();
+
+        $variation->stocks()->save(
+            factory(Stock::class)->make([
+                'quantity' => $quantity = 5
+            ])
+        );
+
+        $this->assertTrue($variation->inStock());
+    }
+
+    public function testCanGetStockCount()
+    {
+        $variation = factory(ProductVariation::class)->create();
+
+        $variation->stocks()->save(
+            factory(Stock::class)->make([
+                'quantity' => 5
+            ])
+        );
+
+        $variation->stocks()->save(
+            factory(Stock::class)->make([
+                'quantity' => 5
+            ])
+        );
+
+        $this->assertEquals($variation->stockCount(), 10);
+    }
 }
