@@ -28,6 +28,22 @@ class ProductVariation extends Model
     }
 
     /**
+     * @return bool
+     */
+    public function inStock()
+    {
+        return $this->stockCount() > 0;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function stockCount()
+    {
+        return $this->stock->sum('pivot.stock');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function type()
@@ -43,8 +59,27 @@ class ProductVariation extends Model
         return $this->belongsTo(Product::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+
+    /**
+     * Need to get Pivot information of ProductVariation instance from the related view table
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function stock()
+    {
+        return $this->belongsToMany(
+            ProductVariation::class,
+            'product_variation_stock_view'
+        )->withPivot([
+            'stock',
+            'in_stock'
+        ]);
     }
 }
