@@ -19,6 +19,15 @@ class User extends Authenticatable implements JWTSubject
         'name', 'email', 'password',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->password = bcrypt($user->password);
+        });
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
