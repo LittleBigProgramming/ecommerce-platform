@@ -19,6 +19,8 @@ Route::resource('products', 'Products\ProductController');
 
 Route::get('/', function () {
     $categories = Category::parents()->ordered()->get();
+});
 
-    dd($categories);
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('register', 'Auth\RegisterController@action');
 });
