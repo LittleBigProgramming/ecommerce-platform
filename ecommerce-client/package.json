@@ -14,7 +14,7 @@
     "@nuxtjs/axios": "^5.3.6",
     "bulma": "^0.7.2",
     "cross-env": "^5.2.0",
-    "nuxt": "^2.7.1",
+    "nuxt": "^2.15.8",
     "tar": "^4.4.8"
   },
   "devDependencies": {
